@@ -6,6 +6,7 @@ import {
     FieldValues,
     UseFormRegister
 } from 'react-hook-form';
+import { FC } from 'react';
 
 interface InputProps {
     label: string;
@@ -17,7 +18,7 @@ interface InputProps {
     disabled?: boolean;
 }
 
-const Input: React.FC<InputProps> = ({
+const Input: FC<InputProps> = ({
     label,
     id,
     type,
@@ -35,7 +36,7 @@ const Input: React.FC<InputProps> = ({
                 {label}
             </label>
             <div className='mt-2'>
-                <input 
+                <input
                     id={id}
                     type={type}
                     autoComplete={id}

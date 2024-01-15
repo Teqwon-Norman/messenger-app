@@ -1,6 +1,6 @@
 'use client';
 
-import Input from '@/app/components/inputs/Input';
+import Input from '@/app/components/Input';
 import Button from '@/app/components/Button';
 import AuthSocialButton from './AuthSocialButton';
 
@@ -25,9 +25,7 @@ const AuthForm = () => {
     const {
         register,
         handleSubmit,
-        formState: {
-            errors,
-        }
+        formState: { errors, }
     } = useForm<FieldValues>({
         defaultValues: {
             name: '',

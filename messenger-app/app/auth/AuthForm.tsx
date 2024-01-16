@@ -3,10 +3,13 @@
 import Input from '@/app/components/Input';
 import Button from '@/app/components/Button';
 import AuthSocialButton from './AuthSocialButton';
+import axios from 'axios';
 
 import { useCallback, useState } from "react";
 import { FieldValues, useForm, SubmitHandler } from "react-hook-form";
 import { BsGithub, BsGoogle } from 'react-icons/bs';
+import { toast } from 'react-hot-toast';
+import { signIn } from 'next-auth/react';
 
 type Variant = 'LOGIN' | 'REGISTER';
 
@@ -38,17 +41,40 @@ const AuthForm = () => {
         setIsLoading(true);
 
         if (variant === 'REGISTER') {
-            // AXIOS REGISTER 
+            axios.post('/api/register', data)
+            .catch(() => toast.error('Something went wrong!'))
+            .finally(() => setIsLoading(false));
         }
 
         if (variant === 'LOGIN') {
-            // NextAuth SignIn
+            signIn('credentials', {
+                ...data,
+                redirect: false
+            }).then((callback) => {
+                if (callback?.error) {
+                    toast.error('Invalid credentials');
+                }
+
+                if (callback?.ok && !callback?.error) {
+                    toast.success('Logged in!')
+                }
+            }).finally(() => setIsLoading(false));
         }
     }
 
     const socialAction = (action: string) => {
         setIsLoading(true);
-        // NextAuth Social Sign In
+        signIn(action, { redirect: false })
+        .then((callback) => {
+            if (callback?.error) {
+                toast.error('Invalid Crednetials');
+            }
+
+            if (!callback?.ok && !callback?.error) {
+                toast.success('Logged in!');
+            }
+        })
+        .finally(() => setIsLoading(false));
     }
 
     return (
@@ -56,7 +82,8 @@ const AuthForm = () => {
             className="mt-8 sm:mx-auto sm:w-full sm:max-w-md ">
             <div 
                 className="bg-neutral-900 px-4 py-8 shadow sm:rounded-lg sm:px-10">
-                <form 
+                <form
+                    method="POST"
                     className="space-y-6" 
                     onSubmit={handleSubmit(onSubmit)}>
                         {variant === 'REGISTER' && (

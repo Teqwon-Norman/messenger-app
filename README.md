@@ -1,2 +1,2 @@
-# messenger-app
-Real-time Messenger Clone
+# HaloTalk
+A Real-time Message Application

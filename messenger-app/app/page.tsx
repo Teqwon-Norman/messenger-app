@@ -9,8 +9,9 @@ export default function Home() {
           alt="Logo"
           height="0"
           width="200"
-          className="mx-auto mb-6"
-          src="/images/logo-2.png"
+          className="mx-auto mb-6" 
+          src="/images/logo.png"
+          priority={true}
         />
         <h2 className="text-center text-4xl font-bold tracking-tight text-gray-900">
           Sign in to your account

@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 
-import DesktopSidebar from "./DesktopSidebar";
-import MobileFooter from "./MobileFooter";
+import DesktopSidebar from "./desktop-view/DesktopSidebar";
+import MobileFooter from "./mobile-view/MobileFooter";
 import getCurrentUser from "../actions/getCurrentUser";
 
 async function Sidebar({ children }: { children: ReactNode }) {

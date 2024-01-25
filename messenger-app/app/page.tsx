@@ -1,5 +1,5 @@
 import Image from "next/image";
-import AuthForm from "./auth/AuthForm";
+import AuthForm from "./components/authentication/AuthForm";
 
 export default function Home() {
   return (

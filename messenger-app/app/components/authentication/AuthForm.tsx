@@ -34,11 +34,7 @@ const AuthForm = () => {
         }
     }, [variant]);
 
-    const {
-        register,
-        handleSubmit,
-        formState: { errors, }
-    } = useForm<FieldValues>({
+    const { register, handleSubmit, formState: { errors, } } = useForm<FieldValues>({
         defaultValues: {
             name: '',
             email: '',
@@ -48,6 +44,10 @@ const AuthForm = () => {
 
     const onSubmit: SubmitHandler<FieldValues> = (data) => {
         setIsLoading(true);
+
+        const headers = {
+            key: 'Access-Control-Allow-Origin',
+        };
 
         if (variant === 'REGISTER') {
             axios.post('/api/register', data)
@@ -59,7 +59,8 @@ const AuthForm = () => {
         if (variant === 'LOGIN') {
             signIn('credentials', {
                 ...data,
-                redirect: false
+                redirect: false,
+                headers
             }).then((callback) => {
                 if (callback?.error) {
                     toast.error('Invalid credentials');
@@ -95,7 +96,7 @@ const AuthForm = () => {
                 <form
                     method="POST"
                     className="space-y-6" 
-                    onSubmit={handleSubmit(onSubmit)}>
+                    onSubmit={ handleSubmit(onSubmit) }>
                         {variant === 'REGISTER' && (
                             <Input
                                 id="name"

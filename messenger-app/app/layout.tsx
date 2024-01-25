@@ -5,12 +5,13 @@ import { ReactNode } from 'react'
 import './globals.css'
 
 import ToasterContext from './context/ToasterContext'
+import AuthContext from './context/AuthContext'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Messenger App',
-  description: 'Real-Time Messenger App',
+  title: 'HaloTalk',
+  description: 'Real-Time Messaging Application',
 }
 
 export default function RootLayout({
@@ -20,10 +21,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <ToasterContext />
-        {children}
+      <body
+        suppressHydrationWarning={true}
+        className={inter.className}
+      >
+        <AuthContext>
+          <ToasterContext />
+          { children }
+        </AuthContext>
       </body>
     </html>
-  )
+  );
 }

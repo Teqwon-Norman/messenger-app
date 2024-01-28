@@ -45,6 +45,7 @@ const DesktopSidebar: FC<DesktopSidebarProps> = ({
                             label={item.label}
                             icon={item.icon}
                             href={item.href}
+                            onClick={item.onClick}
                             active={item.active}
                         />
                     )) }

@@ -1,11 +1,12 @@
 'use client';
 
 import axios from 'axios';
-import { FullMessageType } from "@/app/types";
-import { FC, useEffect, useState, useRef } from "react";
+import { FullMessageType } from "../../../../app/types";
+import React, { FC, useEffect, useState, useRef } from "react";
+import { find } from 'lodash';
 
-
-import useConversation from "@/app/hooks/useConversation";
+import { pusherClient } from '../../../../app/modules/pusher';
+import useConversation from "../../../../app/hooks/useConversation";
 import MessageBox from "./MessageBox";
 
 interface BodyProps {
@@ -22,6 +23,43 @@ const Body: FC<BodyProps> = ({
 
     useEffect(() => {
         axios.post(`/api/conversations/${conversationId}/seen`)
+    }, [conversationId]);
+
+    useEffect(() => {
+        pusherClient.subscribe(conversationId);
+        bottomRef?.current?.scrollIntoView();
+
+        const messageHandler = (message: FullMessageType) => {
+            axios.post(`/api/conversations/${conversationId}/seen`)
+
+            setMessages((prevMessages) => {
+                if (find(prevMessages, { id: message.id })) {
+                    return prevMessages;
+                }
+                return [...prevMessages, message];
+            });
+
+            bottomRef?.current?.scrollIntoView();  
+        };
+
+        const updateMessageHandler = (newMessage: FullMessageType) => {
+            setMessages((current) =>
+                current.map((currentMessages) => {
+                    if(currentMessages.id === newMessage.id) {
+                        return newMessage;
+                    }
+                return currentMessages;
+            }));
+        };
+
+        pusherClient.bind('messages:new', messageHandler);
+        pusherClient.bind('message:update', updateMessageHandler);
+
+        return () => {
+            pusherClient.unsubscribe(conversationId);
+            pusherClient.unbind('messages:new', messageHandler);
+            pusherClient.unbind('message:update', updateMessageHandler);
+        }
     }, [conversationId]);
 
     return (

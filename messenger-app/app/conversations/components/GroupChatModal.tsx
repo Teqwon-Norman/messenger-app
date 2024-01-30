@@ -1,15 +1,16 @@
 'use client';
 
 import axios from 'axios';
-import { FC, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { FieldValues, useForm, SubmitHandler } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 
-import Input from '@/app/components/Input';
-import Modal from '@/app/components/Modal';
+import Button from '../../../app/components/Button';
+import Input from '../../../app/components/Input';
+import Modal from '../../../app/components/Modal';
 import { User } from '@prisma/client';
 import { useRouter } from 'next/navigation';
-import Select from '@/app/components/Select';
+import Select from '../../../app/components/Select';
 
 interface GroupChatModalProps {
     isOpen?: boolean;
@@ -93,6 +94,22 @@ const GroupChatModal: FC<GroupChatModalProps> = ({
                             />
                         </div>
                     </div>
+                </div>
+                <div className='mt-6 flex items-center justify-end gap-x-6'>
+                    <Button
+                        disabled={isLoading}
+                        onClick={onClose}
+                        type='button'
+                        secondary
+                    >
+                        Cancel                            
+                    </Button>
+                    <Button
+                        disabled={isLoading}
+                        type='submit'
+                    >
+                        Create                            
+                    </Button>
                 </div>
             </form>
         </Modal>

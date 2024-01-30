@@ -1,10 +1,10 @@
 "use client";
 
-import { FC, useState } from "react";
-import { FullConversationType } from "@/app/types";
+import React, { FC, useState } from "react";
+import { FullConversationType } from "../../../app/types";
 import { useRouter } from "next/navigation";
 import clsx from "clsx";
-import useConversation from "@/app/hooks/useConversation";
+import useConversation from "../../../app/hooks/useConversation";
 import { MdOutlineGroupAdd } from "react-icons/md";
 
 import ConversationBox from "./ConversationBox";

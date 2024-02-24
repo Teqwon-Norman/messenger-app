@@ -1,16 +1,16 @@
 'use client';
 
-import { FC, Fragment, useMemo, useState } from 'react';
+import React, { FC, Fragment, useMemo, useState } from 'react';
 import { format } from 'date-fns';
 import { Transition, Dialog } from '@headlessui/react';
 import { IoClose, IoTrash } from 'react-icons/io5';
 
-import Avatar from '@/app/components/Avatar';
-import AvatarGroup from '@/app/components/AvatarGroup';
+import Avatar from '../../../../app/components/Avatar';
+import AvatarGroup from '../../../../app/components/AvatarGroup';
 import { Conversation, User } from '@prisma/client';
 import ConfirmModal from './ConfirmModal';
-import useOtherUser from '@/app/hooks/useOtherUser';
-import useActiveList from '@/app/hooks/useActiveList';
+import useOtherUser from '../../../../app/hooks/useOtherUser';
+import useActiveList from '../../../../app/hooks/useActiveList';
 
 interface ProfileDrawerProps {
     isOpen?: boolean;

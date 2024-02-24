@@ -1,11 +1,11 @@
 'use client';
 
-import Input from '@/app/components/Input';
-import Button from '@/app/components/Button';
+import Input from '../../app/components/Input';
+import Button from '../../app/components/Button';
 import AuthSocialButton from './AuthSocialButton';
 import axios from 'axios';
 
-import { useCallback, useState, useEffect } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import { FieldValues, useForm, SubmitHandler } from "react-hook-form";
 import { BsGithub, BsGoogle } from 'react-icons/bs';
 import { toast } from 'react-hot-toast';

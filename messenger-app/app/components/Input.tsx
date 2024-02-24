@@ -30,7 +30,7 @@ const Input: FC<InputProps> = ({
     return (
         <div>
             <label
-                className='block text-sm font-medium text-gray-900'
+                className='block text-sm font-medium text-white'
                 htmlFor={id}
             >
                 {label}
